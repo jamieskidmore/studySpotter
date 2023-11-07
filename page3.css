@@ -1,0 +1,68 @@
+/* Reset some default styles for better consistency */
+body, h1, h2, h3, p, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    margin: 20px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+.colorpalate {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.color-palette-description {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.color-palette-description p {
+    color: #333;
+}
+
+/* Style individual color descriptions */
+.color-description {
+    margin-bottom: 10px;
+}
+
+/* Define styles for color codes */
+.color-code {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style the paragraphs containing color descriptions */
+.color-description p {
+    margin-bottom: 10px;
+}
+
+/* Apply styles to the color codes within the paragraphs */
+.color-description p span {
+    font-weight: bold;
+    color: #3590F3;
+}
+
+/* Apply styles to the color names within the paragraphs */
+.color-description p em {
+    font-style: italic;
+    color: #62BFED;
+}
