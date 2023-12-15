@@ -20,7 +20,6 @@ export default function SpotDetail({ spotId }: SpotDetailProps) {
   const [spot, setSpot] = useState<SpotType | null>(null);
 
   useEffect(() => {
-    // Fetch spot details based on spotId
     const spotDetails = db.spots.find((s) => s.id === +spotId);
     setSpot(spotDetails || null);
   }, []);

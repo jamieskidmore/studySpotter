@@ -4,12 +4,14 @@ export const db = {
       id: 1,
       name: "Tech Hub",
       address: "555 Seymour",
+      building: "DTC",
       distance: "5km",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
       photo:
         "https://cdn.discordapp.com/attachments/1156321096572866580/1181237006005710988/img-placeholder.webp?ex=658053b0&is=656ddeb0&hm=b61da144f1213218077ef2a7b791f3be008857804c60db28724c75d0ab482ce7&",
       rating: 3,
+      amenities: [{ id: 1, description: "yas" }],
       reviews: [
         {
           id: 1,
@@ -32,11 +34,13 @@ export const db = {
       name: "Computer Lab",
       address: "555 Seymour",
       distance: "5km",
+      building: "DTC",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
       photo:
         "https://cdn.discordapp.com/attachments/1156321096572866580/1181237006005710988/img-placeholder.webp?ex=658053b0&is=656ddeb0&hm=b61da144f1213218077ef2a7b791f3be008857804c60db28724c75d0ab482ce7&",
       rating: 4,
+      amenities: [{ id: 1, description: "yas" }],
       reviews: [
         {
           id: 1,
@@ -55,10 +59,12 @@ export type Spot = {
   name: string;
   address: string;
   distance: string;
+  building: string;
   description: string;
   photo: string;
   rating: number;
-  reviews: Array<Review>; // Assuming you have a Review type as well
+  amenities: Array<Amenity>;
+  reviews: Array<Review>;
 };
 
 export type Review = {
@@ -67,4 +73,9 @@ export type Review = {
   author: string;
   rating: number;
   body: string;
+};
+
+export type Amenity = {
+  id: number;
+  description: string;
 };
