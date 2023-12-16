@@ -1,5 +1,6 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
@@ -8,6 +9,8 @@ export default function Search() {
   const [selectedAmenities, setSelectedAmenities] = useState([""]);
   const [noiseLevel, setNoiseLevel] = useState(50);
   const [selectedHours, setSelectedHours] = useState([""]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [queryString, setQueryString] = useState("");
 
   const amenities = [
     "Adjustable Tables",
@@ -44,11 +47,35 @@ export default function Search() {
     }
   };
 
+  const handleInputChange = (event: any) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const submitSearch = async () => {
+    const querystring = searchTerm + "&" + selectedAmenities.toString();
+    // localStorage.setItem("searchTerm", searchTerm);
+    // localStorage.setItem("amenities", selectedAmenities.toString());
+    window.location.href = "/results/" + querystring;
+  };
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      submitSearch();
+    }
+  };
+
   return (
     <>
       {!showMenu && (
         <div>
           <div className="flex items-center space-x-2">
+            <p
+              style={{
+                color: "#3590F3",
+              }}
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </p>
             <input
               type="text"
               placeholder="search study spots..."
@@ -57,6 +84,8 @@ export default function Search() {
                 border: "4px solid #3590F3",
                 color: "#3590F3",
               }}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
             />
             <button
               className="px-2 py-1 items-center"
@@ -83,6 +112,9 @@ export default function Search() {
                 border: "4px solid #3590F3",
                 color: "#3590F3",
               }}
+              value={searchTerm}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
             />
             <button
               className="px-2 py-1 items-center"
@@ -105,9 +137,7 @@ export default function Search() {
               <option value="" disabled selected>
                 Select a Building
               </option>
-              <option value="building1">Building 1</option>
-              <option value="building2">Building 2</option>
-              <option value="building3">Building 3</option>
+              <option value="building1">DTC</option>
             </select>
             <div>
               <h3>Amenities</h3>
@@ -168,6 +198,7 @@ export default function Search() {
             <button
               className="w-full rounded-md"
               style={{ backgroundColor: "#C2BBF0" }}
+              onClick={submitSearch}
             >
               APPLY
             </button>

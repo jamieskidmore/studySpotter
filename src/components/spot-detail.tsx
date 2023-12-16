@@ -1,5 +1,3 @@
-"use client";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart as regularHeart,
@@ -9,20 +7,28 @@ import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
 import SingleReview from "./single-review";
-import { db, Spot as SpotType } from "../app/fakeDb";
+// import { db, Spot as SpotType } from "../app/fakeDb";
+import { db } from "@/db";
+import {
+  getAmenitiesForSpot,
+  getReviewsForSpot,
+  getSpotById,
+} from "@/app/actions";
 import { useEffect, useState } from "react";
 
 type SpotDetailProps = {
   spotId: number;
 };
 
-export default function SpotDetail({ spotId }: SpotDetailProps) {
-  const [spot, setSpot] = useState<SpotType | null>(null);
+export default async function SpotDetail({ spotId }: SpotDetailProps) {
+  // const [spot, setSpot] = useState<any>(null);
+  // const [reviews, setReviews] = useState<any>([]);
+  // const [amenities, setAmenities] = useState<any>([]);
 
-  useEffect(() => {
-    const spotDetails = db.spots.find((s) => s.id === +spotId);
-    setSpot(spotDetails || null);
-  }, []);
+  const spot = await getSpotById(spotId);
+  const reviews = await getReviewsForSpot(spotId);
+  const amenities = await getAmenitiesForSpot(spotId);
+  console.log(amenities);
 
   if (!spot) {
     return <div>Loading...</div>;
@@ -85,7 +91,7 @@ export default function SpotDetail({ spotId }: SpotDetailProps) {
         <div className="grid grid-cols-2 text-2xl">
           <div>
             <p>{spot.address}</p>
-            <p>{`${spot.distance} away`}</p>
+            <p>0km away</p>
           </div>
           <div className="flex justify-end">
             <FontAwesomeIcon
@@ -97,7 +103,9 @@ export default function SpotDetail({ spotId }: SpotDetailProps) {
         </div>
         <div className="flex justify-center">
           <Image
-            src={spot.photo}
+            src={
+              "https://cdn.discordapp.com/attachments/1156321096572866580/1181237006005710988/img-placeholder.webp?ex=658053b0&is=656ddeb0&hm=b61da144f1213218077ef2a7b791f3be008857804c60db28724c75d0ab482ce7&"
+            }
             alt={spot.name}
             width="400"
             height="300"
@@ -106,12 +114,22 @@ export default function SpotDetail({ spotId }: SpotDetailProps) {
         <div>
           <p>{spot.description}</p>
         </div>
+        {amenities.map((amenity: any, index: any) => (
+          <div
+            key={index}
+            className={
+              "flex text-lg items-center space-x-2 bg-blue-500 text-white p-2"
+            }
+          >
+            <span>{amenity}</span>
+          </div>
+        ))}
         <div className="flex justify-center items-center space-x-1">
-          {renderStars(spot.rating)}
+          {renderStars(4)}
         </div>
         <div className="space-y-2">
           <h3 className="text-2xl">Reviews</h3>
-          {spot.reviews.map((review) => (
+          {reviews.map((review: any) => (
             <SingleReview key={review.id} review={review} />
           ))}
         </div>
@@ -119,7 +137,6 @@ export default function SpotDetail({ spotId }: SpotDetailProps) {
       <button
         className="w-full rounded-md text-2xl text-white p-2"
         style={{ backgroundColor: "#C2BBF0" }}
-        onClick={() => (window.location.href = "/review")}
       >
         ADD REVIEW
       </button>

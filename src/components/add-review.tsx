@@ -63,6 +63,7 @@ export default function AddReview() {
             value="SUBMIT"
             className="w-full rounded-md text-2xl text-white p-2"
             style={{ backgroundColor: "#C2BBF0" }}
+            disabled={true}
           />
         </div>
       </form>

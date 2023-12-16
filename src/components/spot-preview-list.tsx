@@ -1,13 +1,15 @@
 import type { Spot } from "@/app/fakeDb";
 import SpotPreview from "./spot-preview";
+import { getAllSpots } from "@/app/actions";
 
-export default function SpotPreviewList({ spots }: { spots: Spot[] }) {
-  console.log(spots);
-  return (
-    <div className="space-y">
-      {spots.map((spot) => (
-        <SpotPreview key={spot.id} spot={spot} />
-      ))}
-    </div>
-  );
+export default async function SpotPreviewList() {
+  const spots = await getAllSpots();
+  if (spots !== undefined)
+    return (
+      <div className="space-y">
+        {spots.map((spot: any) => (
+          <SpotPreview key={spot.id} spot={spot} />
+        ))}
+      </div>
+    );
 }
